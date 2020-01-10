@@ -25,6 +25,7 @@ resource "google_storage_bucket" "buckets" {
   location      = var.location
   storage_class = var.storage_class
   labels        = merge(var.labels, { name = "${local.prefix}${lower(element(var.names, count.index))}" })
+  
   force_destroy = lookup(
     var.force_destroy,
     lower(element(var.names, count.index)),
@@ -41,6 +42,9 @@ resource "google_storage_bucket" "buckets" {
       lower(element(var.names, count.index)),
       false,
     )
+  }
+  encryption {
+    default_kms_key_name = var.encryption_key
   }
   dynamic "lifecycle_rule" {
     for_each = var.lifecycle_rules

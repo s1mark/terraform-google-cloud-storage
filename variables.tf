@@ -115,3 +115,9 @@ variable "lifecycle_rules" {
   default     = []
   description = "List of lifecycle rules to configure. Format is the same as described in provider documentation https://www.terraform.io/docs/providers/google/r/storage_bucket.html#lifecycle_rule except condition.matches_storage_class should be a comma delimited string."
 }
+
+variable "encryption_key" {
+  type        = string
+  description = "KMS key to encrypt the bucket. The crypto key must be available in the location that the bucket is created in"
+  default     = null
+}
